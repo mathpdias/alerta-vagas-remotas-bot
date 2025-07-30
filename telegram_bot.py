@@ -1,8 +1,7 @@
 import requests
-import os
 
-BOT_TOKEN = os.getenv("8070777170:AAEXhz786u288fZGkTEvElSjDwm2jz0f-pk")
-CHAT_ID = os.getenv("-1002311325037")
+BOT_TOKEN = "8070777170:AAEXhz786u288fZGkTEvElSjDwm2jz0f-pk"
+CHAT_ID = "-1002311325037"
 
 sent_jobs = set()
 
