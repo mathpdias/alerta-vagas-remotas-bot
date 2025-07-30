@@ -11,7 +11,7 @@ def job_runner():
             for job in jobs:
                 send_to_telegram(job)
         except Exception as e:
-            print(f"Erro: {e}")
+            print(f"Erro ao buscar ou enviar vagas: {e}")
         time.sleep(300)  # 5 minutos
 
 keep_alive()
