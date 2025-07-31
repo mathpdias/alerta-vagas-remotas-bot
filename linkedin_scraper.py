@@ -3,23 +3,13 @@ from bs4 import BeautifulSoup
 import re
 
 def is_valid_job(title, location, description):
-    keywords = [
-        "Atendente", "Atendimento ao Cliente", "Assistente de Suporte",
-        "Analista de Suporte", "Customer Success", "Sucesso do Cliente",
-        "Assistente Administrativo", "Analista Administrativo", "Assistente de Atendimento",
-        "Agente de Atendimento", "Profissional de Atendimento Digital",
-        "Assistente Virtual", "Remote Virtual Assistant", "Analista de Gestão de Relacionamento com o Cliente",
-        "Auxiliar Administrativo", "Suporte ao Cliente", "Suporte Técnico",
-        "Assistente Comercial", "Assistente de Vendas", "Secretário", "Secretária"
-    ]
-
+    # Verifica se a vaga é para o Brasil
     location_ok = "brasil" in location.lower() or "brazil" in location.lower()
-    keyword_ok = any(k.lower() in (title + description).lower() for k in keywords)
 
-    # Evita idiomas não latinos, especialmente títulos em inglês irrelevantes
-    contains_foreign_chars = re.search(r"[à-úÀ-Ú\u00C0-\u017F]", title + description) is None
+    # Evita títulos/descrições que não possuem caracteres do português (útil para filtrar inglês puro)
+    has_portuguese_chars = re.search(r"[à-úÀ-Ú]", title + description) is not None
 
-    return location_ok and keyword_ok and contains_foreign_chars
+    return location_ok and has_portuguese_chars
 
 def get_remote_jobs():
     url = (
